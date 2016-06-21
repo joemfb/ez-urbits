@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+      @-webkit-keyframes blinker {
+        from {opacity: 1.0;}
+        to {opacity: 0.0;}
+      }
+      blink {
+        text-decoration: blink;
+        -webkit-animation-name: blinker;
+        -webkit-animation-duration: 0.5s;
+        -webkit-animation-iteration-count:infinite;
+        -webkit-animation-timing-function:linear;
+        -webkit-animation-direction: alternate;
+      }
+    </style>
+    <title>Urbit is easy!</title>
+    <script type='text/javascript'>
+      var intros = [
+        'Just write some Hoon that',
+        'Just compose Nock formulas that',
+        'Just use Arvo to'
+      ]
+
+      var ships = [
+        '~zod',
+        '~fyr',
+        '~ped',
+        '~doznec',
+        '~tasfyn-partyv'
+      ]
+
+      var verbs = [
+        ['bunt'],
+        ['unbunt'],
+        ['slot'],
+        ['slam'],
+        ['gas', 'gasses'],
+        ['turn'],
+        ['reap'],
+        ['poke'],
+        ['peak'],
+        ['abet'],
+        ['stun'],
+        ['cook'],
+        ['crisp'],
+        ['trip'],
+        ['mint'],
+        ['bone'],
+        ['burn']
+      ]
+
+      var adjectives = [
+        'regular',
+        'irregular',
+        'moldy',
+        'woody',
+        'wet',
+        'dry',
+        'warm',
+        'cold',
+        'iron',
+        'zinc',
+        'lead',
+        'gold',
+        'bivariant',
+        'invariant',
+        'covariant',
+        'contravariant',
+        'lapidary',
+        'ultralapidary',
+        'running',
+        'jogging'
+      ]
+
+      var nouns = [
+        ['atom'],
+        ['cell'],
+        ['noun'],
+        ['span'],
+        ['mold'],
+        ['icon'],
+        ['gate'],
+        ['payload'],
+        ['sample'],
+        ['core'],
+        ['battery', 'batteries'],
+        ['arm'],
+        ['foot'],
+        ['twig'],
+        ['aura'],
+        ['odor'],
+        ['cord'],
+        ['tape'],
+        ['book'],
+        ['page'],
+        ['stem'],
+        ['bulb'],
+        ['moss'],
+        ['seed'],
+        ['rune'],
+        ['sigil'],
+        ['limb'],
+        ['leg'],
+        ['wing'],
+        ['face'],
+        ['taco'],
+        ['tune'],
+        ['alias'],
+        ['bridge'],
+        ['beak'],
+        ['bull'],
+        ['term'],
+        ['toga'],
+        ['vase'],
+        ['mark'],
+        ['generator'],
+        ['galaxy'],
+        ['star'],
+        ['planet'],
+        ['moon'],
+        ['comet'],
+        ['ship'],
+        ['pier']
+      ]
+
+      var runes = [
+        ['ace', ' '],
+        ['bar', '|'],
+        ['bas', '\\'],
+        ['buc', '$'],
+        ['cab', '_'],
+        ['cen', '%'],
+        ['col', ':'],
+        ['com', ','],
+        ['doq', '"'],
+        ['dot', '.'],
+        ['fas', '/'],
+        ['gal', '<'],
+        ['gap', '  '],
+        ['gar', '>'],
+        ['hax', '#'],
+        ['hep', '-'],
+        ['kel', '{'],
+        ['ker', '}'],
+        ['ket', '^'],
+        ['lus', '+'],
+        ['pam', '&'],
+        ['pat', '@'],
+        ['pel', '('],
+        ['per', ')'],
+        ['sel', '['],
+        ['sem', ';'],
+        ['ser', ']'],
+        ['soq', '\''],
+        ['tar', '*'],
+        ['tec', '`'],
+        ['tis', '='],
+        ['wut', '?'],
+        ['zap', '!']
+      ]
+
+      var errors = [
+        'mull-bonk-a',
+        'mull-bonk-b',
+        'nest-fail',
+        'fuse-loop',
+        'find.$',
+        'find-fork-d',
+        'mint-vain',
+        'mint-lost',
+        'bad-softing'
+      ]
+
+      function rand (list) {
+        var idx = Math.floor(Math.random() * list.length)
+        return list[idx]
+      }
+
+      function para (size, text) {
+        return '<p style="font-size:' + size +
+          'px; text-align: center; margin:0; padding:0; border:0">' + text + '</p>'
+      }
+
+      function plural (noun) {
+        if (noun.length === 2) return noun[1]
+
+        var suffix = /(s|sh)$/.test(noun[0]) ? 'es' : 's'
+        return noun[0] + suffix
+      }
+
+      function article (word) {
+        return /^[aeiou]/.test(word) ? 'an' : 'a'
+      }
+
+      function create () {
+        var intro = rand(intros)
+        var thirdPerson = /Hoon/.test(intro)
+        var verb = thirdPerson ? plural(rand(verbs)) : rand(verbs)[0]
+        var noun = rand(nouns)[0]
+        var adjective = rand(adjectives)
+        var produce = thirdPerson ? 'produces' : 'produce'
+        var _runes = [rand(runes), rand(runes)]
+
+        var contents = [
+          para(70, '<blink>Urbit is easy!</blink>'),
+          para(40, intro),
+          para(70, verb + ' ' + article(noun) + ' ' + noun),
+          para(40, 'with ' + article(adjective)),
+          para(70, adjective + ' ' + rand(nouns)[0]),
+          para(40, 'using the <em>' +
+            _runes[0][0] + _runes[1][0] +
+            ' (<code style="background-color: #dcdcdc;">' + _runes[0][1] + _runes[1][1] + '</code>)' +
+            '</em> twig,'
+          )
+        ]
+
+        if (Math.random() < .25) {
+          return [
+            contents.shift(),
+            '<del style="color:#900">' + contents.join('') + '</del>',
+            para(70, '<blink>Oh No!</blink>'),
+            para(70, 'that crashed with'),
+            para(70, '<em style="color:#900">' + rand(errors) + '<em>')
+          ]
+        }
+
+        return contents.concat([
+          para(40, 'and ' + produce),
+          para(70, rand(adjectives) + ' ' + plural(rand(nouns))),
+          (Math.random() > .5) ? '' : para(40, 'for <em>' + rand(ships) + '</em>')
+        ])
+      }
+
+      var elements = [
+        '<button style="position:absolute; top: 20px; left: 40px;" ' +
+        'onclick="javascript:generate()">refresh</button>',
+        '<span style="position:absolute; top: 20px; right: 40px;">by <em>~novlen-hanweb</em></span>',
+        '<p style="margin-top: 50px;"></p>'
+      ]
+
+      function generate () {
+        if (!(document.body && document.body.innerHTML)) {
+          setTimeout(generate, 10)
+        }
+        document.body.innerHTML = elements.concat(create()).join('')
+      }
+
+      window.onload = function () {
+        generate()
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
